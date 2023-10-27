@@ -13,6 +13,5 @@ import { BookListItemComponent } from './book-list-item/book-list-item.component
     BookDetailsComponent,
   ],
   imports: [CommonModule, BooksRoutingModule],
-  exports: [BookListComponent, BookDetailsComponent],
 })
 export class BooksModule {}
