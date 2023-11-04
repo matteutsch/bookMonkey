@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Book } from '../../shared/book';
 import { BookStoreService } from 'src/app/shared/book-store.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'bm-book-details',
@@ -9,16 +10,14 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./book-details.component.scss'],
 })
 export class BookDetailsComponent {
-  book?: Book;
+  book$: Observable<Book>;
   constructor(
     private service: BookStoreService,
     private route: ActivatedRoute,
     private router: Router,
   ) {
     const isbn = this.route.snapshot.paramMap.get('isbn')!;
-    this.service.getSingle(isbn).subscribe((book) => {
-      this.book = book;
-    });
+    this.book$ = this.service.getSingle(isbn);
   }
 
   removeBook(isbn: string) {

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, catchError, of } from 'rxjs';
 import { Book } from './book';
 
 @Injectable({
@@ -12,7 +12,21 @@ export class BookStoreService {
   constructor(private http: HttpClient) {}
 
   getAll(): Observable<Book[]> {
-    return this.http.get<Book[]>(`${this.apiUrl}/books`);
+    return this.http.get<Book[]>(`${this.apiUrl}/books`).pipe(
+      catchError((err) => {
+        console.log(err);
+        return of([]);
+      }),
+    );
+  }
+
+  getAllSearch(term: string): Observable<Book[]> {
+    return this.http.get<Book[]>(`${this.apiUrl}/books/search/${term}`).pipe(
+      catchError((err) => {
+        console.log(err);
+        return of([]);
+      }),
+    );
   }
 
   getSingle(isbn: string): Observable<Book> {
