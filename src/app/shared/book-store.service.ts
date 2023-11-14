@@ -44,4 +44,8 @@ export class BookStoreService {
   remove(isbn: string): Observable<unknown> {
     return this.http.delete(`${this.apiUrl}/books/${isbn}`);
   }
+
+  check(isbn: string): Observable<boolean> {
+    return this.http.get<boolean>(`${this.apiUrl}/books/${isbn}/check`);
+  }
 }
