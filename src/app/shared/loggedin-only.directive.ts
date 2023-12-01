@@ -1,9 +1,10 @@
 import { Directive, TemplateRef, ViewContainerRef } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
-import { AuthService } from 'src/app/shared/auth.service';
+import { AuthService } from './auth.service';
 
 @Directive({
   selector: '[bmLoggedinOnly]',
+  standalone: true,
 })
 export class LoggedinOnlyDirective {
   private destroy$ = new Subject<void>();
